@@ -1,0 +1,129 @@
+@charset "utf-8";
+/*
+ Plugin Name: Infinite Timeline
+ infinite-timeline.css
+ Version: 1.0
+**/
+#infinite_timeline {
+	width: 100%;
+	margin: 20px 0;
+	overflow: hidden;
+  	*zoom: 1;
+}
+
+#infinite_timeline * {
+	box-sizing: border-box;
+}
+
+#infinite_timeline .year_posts {
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEElEQVQIW2NMTEz8z8gABAAPKwIlXWq1kgAAAABJRU5ErkJggg==);
+	background-repeat: repeat-y;
+	background-position: 50% 0;
+	padding-top: 40px;
+	overflow: hidden;
+  	*zoom: 1;
+}
+
+#infinite_timeline .year_head {
+	clear: both;
+	font-size: 3em;
+	text-align: center;
+	margin: 20px 0;
+}
+
+#infinite_timeline .item {
+	width: 46%;
+	margin-bottom: 10px;
+	border-radius: 4px;
+}
+
+#infinite_timeline .item.year_top {
+	margin-top: -40px;
+}
+
+#infinite_timeline .item.left {
+	float: left;
+	clear: left;
+}
+
+#infinite_timeline .item.right {
+	float: right;
+	clear: right;
+}
+
+#infinite_timeline .item img.wp-post-image {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+#infinite_timeline .title {
+	line-height: 1.4;
+	padding: 10px;
+}
+
+#infinite_timeline .item a {
+	display: block;
+	min-height: 100px;
+	border-radius: 4px;
+	text-decoration: none;
+	border: none;
+	background: #FFF;
+	color: #666;
+	overflow: hidden;
+  	*zoom: 1;
+}
+
+#infinite_timeline .item a:hover {
+	color: #888;
+}
+
+#infinite_timeline .item a:hover img {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  opacity: 0.9;
+}
+
+/* Baloon */
+#infinite_timeline .item.left { position: relative; background: #fff; border: 1px solid #cccccc; }
+#infinite_timeline .item.left:after,
+#infinite_timeline .item.left:before { left: 100%; bottom: 20px; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
+#infinite_timeline .item.left:after { border-color: rgba(252, 252, 252, 0); border-left-color: #ffffff; border-width: 10px; margin-top: -10px; }
+#infinite_timeline .item.left:before { border-color: rgba(204, 204, 204, 0); border-left-color: #cccccc; border-width: 11px; margin-top: -11px; bottom: 19px; }
+
+#infinite_timeline .item.right { position: relative; background: #fff; border: 1px solid #cccccc; }
+#infinite_timeline .item.right:after,
+#infinite_timeline .item.right:before { right: 100%; bottom: 20px; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; }
+#infinite_timeline .item.right:after { border-color: rgba(252, 252, 252, 0); border-right-color: #fff; border-width: 10px; margin-top: -10px; }
+#infinite_timeline .item.right:before { border-color: rgba(204, 204, 204, 0); border-right-color: #cccccc; border-width: 11px; margin-top: -11px; bottom: 19px; }
+
+/* Pagenation */
+#infinite_timeline .pagenation,
+#infinite_timeline #infscr-loading {
+	text-align: center;
+}
+
+#infinite_timeline #infscr-loading em {
+	display: none;
+}
+
+#infinite_timeline .pagenation a {
+	display: block;
+	padding: 20px;
+}
+
+#infinite_timeline .pagenation img {
+	display: none;
+}
+
+/* Mobile */
+@media screen and (max-width: 480px) {
+	#infinite_timeline .title {
+		padding: 5px;
+		font-size: 0.9em;
+	}
+
+	#infinite_timeline .year_head {
+		margin-top: 10px;
+	}
+}

@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Infinite Timeline\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-23 00:00+0900\n"
+"PO-Revision-Date: \n"
+"Last-Translator: TORIYAMA Yuko <sysbirdj@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: infinite-timeline/infinite-timeline.php:185
+msgid "More"
+msgstr "もっと見る"
+
+#. Description of the plugin/theme
+msgid "The shortcode displays posts on vertical timeline."
+msgstr "投稿のタイムラインを縦に表示するショートコードです。"
