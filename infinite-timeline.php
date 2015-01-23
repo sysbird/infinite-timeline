@@ -55,43 +55,48 @@ class InfiniteTimeline {
 	// ShoetCode
 	function shortcode( $atts ) {
 
-		global $page, $post;
+		global $post, $wp_rewrite;
 		$output = '';
 
 		// option
-		$atts = shortcode_atts( array( 'category_name' => '',
-											'tag' => '',
-											'post_type' => 'post',
-											'posts_per_page' => 0 ),
-											$atts );
+		$atts = shortcode_atts( array( 'category_name'		=> '',
+										'tag'				=> '',
+										'post_type'			=> 'post',
+										'posts_per_page'	=> 0 ),
+										$atts );
 	
-		$args = array( 'post_type' => $atts['post_type'] );
+		$args = array( 'post_type' => $atts[ 'post_type' ] );
 
-		// category name
-		$category_name = $atts['category_name'];
+ 		// category name
+		$category_name = $atts[ 'category_name' ];
 		if( $category_name ){
-			$args['category_name'] = $category_name;
+			$args[ 'category_name' ] = $category_name;
 		}
 
 		// tag
-		$tag = $atts['tag'];
+		$tag = $atts[ 'tag' ];
 		if( $tag ){
-			$args['tag'] = $tag;
+			$args[ 'tag' ] = $tag;
 		}
 
+		// page
+		$infinite_timeline_next = 1;
+ 		if( isset( $_GET[ 'infinite_timeline_next' ] ) ) {
+ 			$infinite_timeline_next = $_GET[ 'infinite_timeline_next' ];
+ 		}
+
 		// posts per page
-		$posts_per_page = $atts['posts_per_page'];
+		$posts_per_page = $atts[ 'posts_per_page' ];
 		if( !$posts_per_page ){
 			$posts_per_page = get_option( 'posts_per_page' );
 		}
 		$args['posts_per_page'] = $posts_per_page;
-		wp_reset_postdata();
 
 		// prev post
 		$year_prev = 0;
-		if( 1 < $page ){
-			$args['posts_per_page'] = 1;
-			$args['offset'] = $posts_per_page * ( $page -1 ) -1;
+		if( 1 < $infinite_timeline_next ){
+			$args[ 'posts_per_page' ] = 1;
+			$args[ 'offset' ] = $posts_per_page * ( $infinite_timeline_next -1 ) -1;
 			$myposts = get_posts( $args );
 			if ( $myposts ) {
 				foreach( $myposts as $post ){
@@ -99,13 +104,12 @@ class InfiniteTimeline {
 					$year_prev = ( integer )get_post_time( 'Y' );
 				}
 			}
-
 			wp_reset_postdata();
 		}
 
 		// get posts
 		$args['posts_per_page'] = $posts_per_page;
-		$args['offset'] = $posts_per_page * ( $page -1 );
+		$args['offset'] = $posts_per_page * ( $infinite_timeline_next -1 );
 		$myposts = get_posts( $args );
 		$time_last = 0;
 		$year_last = 0;
@@ -117,10 +121,6 @@ class InfiniteTimeline {
 				$title = get_the_title();
 
 				$add_class = '';
-				if ( has_post_thumbnail( $post->ID ) ) {
-				//	$add_class = ' has_post_thumbnail';
-				}
-
 				if( $count %2 ){
 					$add_class .= ' right';
 				}
@@ -129,9 +129,9 @@ class InfiniteTimeline {
 				}
 				
 				// days gone by
-				$time_current = (integer)get_post_time();
+				$time_current = ( integer )get_post_time();
 				if(!$time_last){
-					$time_last = (integer)get_post_time();
+					$time_last = ( integer )get_post_time();
 				}
 
 				$year = ( integer )get_post_time( 'Y' );
@@ -149,7 +149,7 @@ class InfiniteTimeline {
 					$output .= '<div class="year_posts">';
 				}
 
-				$days = ceil(abs($time_current - $time_last) / (60 * 60 * 24) );
+				$days = ceil( abs( $time_current - $time_last ) / (60 * 60 * 24) );
 				$time_last = $time_current;
 
 				$add_style = '';
@@ -176,13 +176,13 @@ class InfiniteTimeline {
 				$year_top = 0;
   			}
 		}
-
 		wp_reset_postdata();
 
 		// output
 		if( $count ){
-			$url = add_query_arg( array( 'page' => ( $page + 1 ) ) );
-			$output = '<div id="infinite_timeline"><div class="box">' .$output .'</div></div><div class="pagenation"><a href="' .$url .'">' .__('More', 'infinite-timeline') .'</a><img src="' .plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ) .'/loading.gif" alt="" class="loading"></div></div>';
+			$rewrite_url = ( $wp_rewrite->using_permalinks() ) ? '<div class="rewrite_url">' : '';
+			$url = add_query_arg( array( 'infinite_timeline_next' => ( $infinite_timeline_next + 1 ) ) );
+			$output = '<div id="infinite_timeline"><div class="box">' .$output .'</div></div><div class="pagenation"><a href="' .$url .'">' .__( 'More', 'infinite-timeline' ) .'</a><img src="' .plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ) .'/images/loading.gif" alt="" class="loading">' .$rewrite_url .'</div></div>';
 		}
 
 		return $output;

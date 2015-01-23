@@ -10,7 +10,15 @@ jQuery( function(){
 
 	jQuery( window ).load(function() {
 
-		// infinitescroll
+		path = '';
+		if ( jQuery( '#infinite_timeline .rewrite_url' ).length ){
+			// using_permalinks
+			path=new Array();
+			path.push( location.href+'?infinite_timeline_next=' );
+			path.push( "" );
+		}
+
+   		// infinitescroll
 		var loading = jQuery( '#infinite_timeline img.loading' ).attr( 'src' );
 		jQuery( '#infinite_timeline' ).infinitescroll( {
 			navSelector  : "#infinite_timeline .pagenation",
@@ -18,7 +26,8 @@ jQuery( function(){
 			itemSelector : "#infinite_timeline .box",
 			loading: {
 				img: loading,
-			}
+			},
+			path : path
 		},
 		function( newElements ){
 			// Loaded
@@ -38,9 +47,11 @@ function infinite_timeline_adjust_vertical_position( newElements ){
 
 	var elements;
 	if( newElements ){
+		// more
 		elements = jQuery( newElements ).find( '.item' );
 	}
 	else{
+		// Initialize
 		elements = jQuery( '#infinite_timeline .item' );
 	}
 
