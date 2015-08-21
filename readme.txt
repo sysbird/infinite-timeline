@@ -43,7 +43,8 @@ TORIYAMA Yuko at [sysbird](https://profiles.wordpress.org/sysbird/)
 2. Go to plugins list and activate "Infinite Timeline".  
 
 == Screenshots ==
-1. Posts on vertical timeline  
+1. example  1
+1. example  2
 
 == Changelog ==
 
