@@ -18,14 +18,21 @@ jQuery( function(){
 			path.push( "" );
 		}
 
-   		// infinitescroll
+		buffer = 40;
+		if ( jQuery( '#infinite_timeline .mobile' ).length ){
+			buffer = 500;
+		}
+
+		// infinitescroll
 		var loading = jQuery( '#infinite_timeline img.loading' ).attr( 'src' );
 		jQuery( '#infinite_timeline' ).infinitescroll( {
 			navSelector  : "#infinite_timeline .pagenation",
 			nextSelector : "#infinite_timeline .pagenation a",
 			itemSelector : "#infinite_timeline .box",
+			bufferPx: buffer,
 			loading: {
 				img: loading,
+				finishedMsg: '',
 			},
 			path : path
 		},
@@ -33,13 +40,12 @@ jQuery( function(){
 			// Loaded
 			jQuery( newElements ).imagesLoaded(function(){
 				infinite_timeline_adjust_vertical_position( newElements );
-				jQuery( '#infscr-loading' ).remove();
 			});
 		} );
 
 		infinite_timeline_adjust_vertical_position( 0 );
 	} );
-} ); 
+} );
 
 /////////////
 // adjust vertical position of days gone by

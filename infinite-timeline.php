@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/plugins/infinite-timeline/
  Description: The shortcode displays posts on vertical timeline.
  Author: sysbird
- Author URI: https://profiles.wordpress.org/sysbird/
+ Author URI: http://www.sysbird.jp/
  Version: 1.0
  License: GPLv2 or later
  Text Domain: infinite-timeline
@@ -64,7 +64,7 @@ class InfiniteTimeline {
 										'post_type'			=> 'post',
 										'posts_per_page'	=> 0 ),
 										$atts );
-	
+
 		$args = array( 'post_type' => $atts[ 'post_type' ] );
 
  		// category name
@@ -81,9 +81,9 @@ class InfiniteTimeline {
 
 		// page
 		$infinite_timeline_next = 1;
- 		if( isset( $_GET[ 'infinite_timeline_next' ] ) ) {
- 			$infinite_timeline_next = $_GET[ 'infinite_timeline_next' ];
- 		}
+		if( isset( $_GET[ 'infinite_timeline_next' ] ) ) {
+			$infinite_timeline_next = $_GET[ 'infinite_timeline_next' ];
+		}
 
 		// posts per page
 		$posts_per_page = $atts[ 'posts_per_page' ];
@@ -110,24 +110,28 @@ class InfiniteTimeline {
 		// get posts
 		$args['posts_per_page'] = $posts_per_page;
 		$args['offset'] = $posts_per_page * ( $infinite_timeline_next -1 );
-		$myposts = get_posts( $args );
+		$args['ignore_sticky_posts'] = 1;
 		$time_last = 0;
 		$year_last = 0;
 		$year_top = 0;
+		$year_start = false;
 		$count = 0;
-		if ( $myposts ) {
-			foreach( $myposts as $post ){
-				setup_postdata( $post );
+
+		$the_query = new WP_Query($args);
+		if ( $the_query->have_posts() ) :
+
+			$output .= '<div id="infinite_timeline"><div class="box">';
+			while ( $the_query->have_posts() ) : $the_query->the_post();
 				$title = get_the_title();
 
 				$add_class = '';
-				if( $count %2 ){
+				if( ( $infinite_timeline_next % 2 && $count %2 ) || ( !( $infinite_timeline_next % 2 ) && !($count %2 ) ) ){
 					$add_class .= ' right';
 				}
 				else{
-					$add_class .= ' left';	
+					$add_class .= ' left';
 				}
-				
+
 				// days gone by
 				$time_current = ( integer )get_post_time();
 				if(!$time_last){
@@ -136,8 +140,9 @@ class InfiniteTimeline {
 
 				$year = ( integer )get_post_time( 'Y' );
 				if( $year != $year_last ){
-					if( $count ){
+					if( $year_start ){
 						$output .= '</div>';
+						$year_start = false;
 					}
 
 					if( $year <> $year_prev ) {
@@ -146,6 +151,7 @@ class InfiniteTimeline {
 
 					$year_last = $year;
 					$year_top = 1;
+					$year_start = true;
 					$output .= '<div class="year_posts">';
 				}
 
@@ -174,16 +180,26 @@ class InfiniteTimeline {
 
 				$count++;
 				$year_top = 0;
-  			}
-		}
-		wp_reset_postdata();
 
-		// output
-		if( $count ){
-			$rewrite_url = ( $wp_rewrite->using_permalinks() ) ? '<div class="rewrite_url">' : '';
+			endwhile;
+
+			if( $year_start ){
+				$output .= '</div>';
+				$year_start = false;
+			}
+
+			$output .= '</div>';
+
+			$rewrite_url = ( $wp_rewrite->using_permalinks() ) ? ' rewrite_url' : '';
+			$mobile = ( wp_is_mobile() ) ? ' mobile' : '';
+
 			$url = add_query_arg( array( 'infinite_timeline_next' => ( $infinite_timeline_next + 1 ) ) );
-			$output = '<div id="infinite_timeline"><div class="box">' .$output .'</div></div><div class="pagenation"><a href="' .$url .'">' .__( 'More', 'infinite-timeline' ) .'</a><img src="' .plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ) .'/images/loading.gif" alt="" class="loading">' .$rewrite_url .'</div></div>';
-		}
+			$output .= '<div class="pagenation' .$rewrite_url .$mobile .'"><a href="' .$url .'">' .__( 'More', 'infinite-timeline' ) .'</a><img src="' .plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ) .'/images/loading.gif" alt="" class="loading"></div>';
+
+			$output .= '</div>';
+
+		endif;
+		wp_reset_postdata();
 
 		return $output;
 	}

@@ -162,7 +162,8 @@
                 $(opts.navSelector).hide();
                 opts.loading.msg
                 .appendTo(opts.loading.selector)
-                .show(opts.loading.speed, $.proxy(function() {
+                /* .show(opts.loading.speed, $.proxy(function() { */
+                .fadeIn(opts.loading.speed, $.proxy(function() { /* update 2016-03-09 cntering loading image by sysbird */
                     this.beginAjax(opts);
                 }, self));
             };

@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-Basepath: X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: \n"
 
-#: infinite-timeline/infinite-timeline.php:185
+#: infinite-timeline/infinite-timeline.php:197
 msgid "More"
 msgstr ""
 

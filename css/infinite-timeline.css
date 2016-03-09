@@ -72,7 +72,7 @@
 	background: #FFF;
 	color: #666;
 	overflow: hidden;
-  	*zoom: 1;
+	*zoom: 1;
 }
 
 #infinite_timeline .item a:hover {
@@ -98,8 +98,8 @@
 #infinite_timeline .item.right:before { border-color: rgba(204, 204, 204, 0); border-right-color: #cccccc; border-width: 11px; margin-top: -11px; bottom: 19px; }
 
 /* Pagenation */
-#infinite_timeline .pagenation,
-#infinite_timeline #infscr-loading {
+#infscr-loading,
+#infinite_timeline .pagenation a {
 	text-align: center;
 }
 
