@@ -25,7 +25,8 @@ jQuery( function(){
 
 		// infinitescroll
 		var loading = jQuery( '#infinite_timeline img.loading' ).attr( 'src' );
-		jQuery( '#infinite_timeline' ).infinitescroll( {
+jQuery( '#infinite_timeline' ).infinitescroll();
+/*		jQuery( '#infinite_timeline' ).infinitescroll( {
 			navSelector  : "#infinite_timeline .pagenation",
 			nextSelector : "#infinite_timeline .pagenation a",
 			itemSelector : "#infinite_timeline .box",
@@ -43,7 +44,7 @@ jQuery( function(){
 			});
 		} );
 
-		infinite_timeline_adjust_vertical_position( 0 );
+		infinite_timeline_adjust_vertical_position( 0 ); */
 	} );
 } );
 

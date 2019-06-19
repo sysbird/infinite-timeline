@@ -1,14 +1,13 @@
 <?php
 /*
  Plugin Name: Infinite Timeline
- Plugin URI: http://wordpress.org/plugins/infinite-timeline/
+ Plugin URI: https://wordpress.org/plugins/infinite-timeline/
  Description: The shortcode displays posts on vertical timeline.
  Author: sysbird
- Author URI: http://www.sysbird.jp/
+ Author URI: https://profiles.wordpress.org/sysbird/
  Version: 1.0
  License: GPLv2 or later
  Text Domain: infinite-timeline
- Domain Path: /languages
 */
 
 //////////////////////////////////////////////////////
@@ -35,10 +34,10 @@ class InfiniteTimeline {
 	// add JavaScript
 	function add_script() {
 		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/imagesloaded.pkgd.js';
-		wp_enqueue_script( 'infinite-timeline-imagesloaded.pkgd', $filename, array( 'jquery' ), '3.1.8' );
+		wp_enqueue_script( 'infinite-timeline-imagesloaded.pkgd', $filename, array( 'jquery' ), 'v4.1.4' );
 
-		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/jquery.infinitescroll.js';
-		wp_enqueue_script( 'infinite-timeline-infinitescroll', $filename, array( 'jquery' ), '2.1.0' );
+		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/infinite-scroll.pkgd.js';
+		wp_enqueue_script( 'infinite-timeline-infinitescroll', $filename, array( 'jquery' ), 'v3.0.6' );
 
 		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/infinite-timeline.js';
 		wp_enqueue_script( 'infinite-timeline', $filename, array( 'jquery' ), '1.0' );
