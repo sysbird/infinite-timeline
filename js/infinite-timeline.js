@@ -1,9 +1,10 @@
 /*
  Plugin Name: Infinite Timeline
  infinite-timeline.js
- Version: 1.0
+ Version: 1.1
  */
 jQuery( function(){
+
 	if( 0 == jQuery( '#infinite_timeline' ).length ){
 		return;
 	}
@@ -13,7 +14,7 @@ jQuery( function(){
 		path = '';
 		if ( jQuery( '#infinite_timeline .rewrite_url' ).length ){
 			// using_permalinks
-			path=new Array();
+			path = new Array();
 			path.push( location.href+'?infinite_timeline_next=' );
 			path.push( "" );
 		}
@@ -25,8 +26,13 @@ jQuery( function(){
 
 		// infinitescroll
 		var loading = jQuery( '#infinite_timeline img.loading' ).attr( 'src' );
-jQuery( '#infinite_timeline' ).infinitescroll();
-/*		jQuery( '#infinite_timeline' ).infinitescroll( {
+		var infScroll = new InfiniteScroll( '#infinite_timeline', {
+			path: '#infinite_timeline .pagenation a',
+			append: '#infinite_timeline .item',
+		});
+		
+		/*
+			jQuery( '#infinite_timeline' ).infinitescroll( {
 			navSelector  : "#infinite_timeline .pagenation",
 			nextSelector : "#infinite_timeline .pagenation a",
 			itemSelector : "#infinite_timeline .box",

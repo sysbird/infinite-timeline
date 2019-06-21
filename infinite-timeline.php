@@ -5,7 +5,7 @@
  Description: The shortcode displays posts on vertical timeline.
  Author: sysbird
  Author URI: https://profiles.wordpress.org/sysbird/
- Version: 1.0
+ Version: 1.1
  License: GPLv2 or later
  Text Domain: infinite-timeline
 */
