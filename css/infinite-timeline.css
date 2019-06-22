@@ -2,7 +2,7 @@
 /*
  Plugin Name: Infinite Timeline
  infinite-timeline.css
- Version: 1.0
+ Version: 1.1
 **/
 #infinite_timeline {
 	width: 100%;
@@ -98,22 +98,13 @@
 #infinite_timeline .item.right:before { border-color: rgba(204, 204, 204, 0); border-right-color: #cccccc; border-width: 11px; margin-top: -11px; bottom: 19px; }
 
 /* Pagenation */
-#infscr-loading,
-#infinite_timeline .pagenation a {
+#infinite_timeline .pagenation {
 	text-align: center;
-}
-
-#infinite_timeline #infscr-loading em {
-	display: none;
 }
 
 #infinite_timeline .pagenation a {
 	display: block;
-	padding: 20px;
-}
-
-#infinite_timeline .pagenation img {
-	display: none;
+	padding: 20px 0;
 }
 
 /* Mobile */

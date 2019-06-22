@@ -10,47 +10,28 @@ jQuery( function(){
 	}
 
 	jQuery( window ).load(function() {
-
-		path = '';
-		if ( jQuery( '#infinite_timeline .rewrite_url' ).length ){
-			// using_permalinks
-			path = new Array();
-			path.push( location.href+'?infinite_timeline_next=' );
-			path.push( "" );
-		}
-
 		buffer = 40;
 		if ( jQuery( '#infinite_timeline .mobile' ).length ){
 			buffer = 500;
 		}
 
 		// infinitescroll
-		var loading = jQuery( '#infinite_timeline img.loading' ).attr( 'src' );
-		var infScroll = new InfiniteScroll( '#infinite_timeline', {
+		var infScroll = new InfiniteScroll( '#infinite_timeline .page', {
 			path: '#infinite_timeline .pagenation a',
-			append: '#infinite_timeline .item',
+			append: '#infinite_timeline .box',
+			button: '#infinite_timeline .pagenation',
+			status: '#infinite_timeline .page-load-status',
+			scrollThreshold: true,
+			history: 'false',
 		});
-		
-		/*
-			jQuery( '#infinite_timeline' ).infinitescroll( {
-			navSelector  : "#infinite_timeline .pagenation",
-			nextSelector : "#infinite_timeline .pagenation a",
-			itemSelector : "#infinite_timeline .box",
-			bufferPx: buffer,
-			loading: {
-				img: loading,
-				finishedMsg: '',
-			},
-			path : path
-		},
-		function( newElements ){
-			// Loaded
-			jQuery( newElements ).imagesLoaded(function(){
-				infinite_timeline_adjust_vertical_position( newElements );
-			});
-		} );
 
-		infinite_timeline_adjust_vertical_position( 0 ); */
+		infScroll.on( 'append', function( response, path, items ) {
+			jQuery( items ).imagesLoaded(function(){
+				infinite_timeline_adjust_vertical_position( items );
+			});
+		});		
+
+		infinite_timeline_adjust_vertical_position( 0 );
 	} );
 } );
 

@@ -119,7 +119,10 @@ class InfiniteTimeline {
 		$the_query = new WP_Query($args);
 		if ( $the_query->have_posts() ) :
 
-			$output .= '<div id="infinite_timeline"><div class="box">';
+			$output .= '<!-- #infinite_timeline -->' ."\n";
+			$output .= '<div id="infinite_timeline">' ."\n";
+			$output .= '<div class="page">';
+			$output .= '<div class="box">';
 			while ( $the_query->have_posts() ) : $the_query->the_post();
 				$title = get_the_title();
 
@@ -140,7 +143,7 @@ class InfiniteTimeline {
 				$year = ( integer )get_post_time( 'Y' );
 				if( $year != $year_last ){
 					if( $year_start ){
-						$output .= '</div>';
+						$output .= '</div>'; // .year_posts
 						$year_start = false;
 					}
 
@@ -175,7 +178,7 @@ class InfiniteTimeline {
 				$output .= get_the_post_thumbnail( $post->ID, $size );
 				$output .= '<div class="title">' .get_post_time( get_option( 'date_format' ) ) .'<br>' .$title .'</div>';
 				$output .= '</a>';
-				$output .= '</div>';
+				$output .= '</div>'; // .item
 
 				$count++;
 				$year_top = 0;
@@ -183,19 +186,20 @@ class InfiniteTimeline {
 			endwhile;
 
 			if( $year_start ){
-				$output .= '</div>';
+				$output .= '</div>'; //.year_posts
 				$year_start = false;
 			}
 
-			$output .= '</div>';
+			$output .= '</div>'; // .box
+			$output .= '</div>'; // .page
 
-			$rewrite_url = ( $wp_rewrite->using_permalinks() ) ? ' rewrite_url' : '';
 			$mobile = ( wp_is_mobile() ) ? ' mobile' : '';
 
 			$url = add_query_arg( array( 'infinite_timeline_next' => ( $infinite_timeline_next + 1 ) ) );
-			$output .= '<div class="pagenation' .$rewrite_url .$mobile .'"><a href="' .$url .'">' .__( 'More', 'infinite-timeline' ) .'</a><img src="' .plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ) .'/images/loading.gif" alt="" class="loading"></div>';
+			$output .= '<div class="pagenation' .$mobile .'"><a href="' .$url .'">' .__( 'More', 'infinite-timeline' ) .'</a>';
+			$output .= '<div class="page-load-status" style="display:none;"><div class="infinite-scroll-request"><img src="' .plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ) .'/images/loading.gif" alt="" class="loading"></div></div></div>' ."\n";
 
-			$output .= '</div>';
+			$output .= '</div><!-- /#infinite_timeline -->' ."\n";
 
 		endif;
 		wp_reset_postdata();
