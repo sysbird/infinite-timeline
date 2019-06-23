@@ -25,6 +25,7 @@ The shortcode displays posts on vertical timeline, and it will read the next pag
 * It's compatible with responsive web design.
 * [infinite-scroll.pkgd.js](https://infinite-scroll.com) the jQuery plugin is licensed under the MIT license.
 * [imagesloaded.pkgd.js](https://imagesloaded.desandro.com/) the jQuery plugin is licensed under the MIT license.
+* [lazysizes.js](https://github.com/aFarkas/lazysizes) the javascript library is licensed under the MIT license.
 
 = Usage =
 1. Please write shortcode [infinite-timeline] in the content.
@@ -47,9 +48,10 @@ The shortcode displays posts on vertical timeline, and it will read the next pag
 
 = 1.1 =
 * fix WordPress Version 5.2.
-* cntering loading image
-* change loop by WP_Query
-* ignore sticky posts
+* cntering loading image.
+* used lazysizes.js for show images.
+* change loop by WP_Query.
+* ignore sticky posts.
 
 = 1.0 =
 * Hello, world!

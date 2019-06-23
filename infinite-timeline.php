@@ -36,11 +36,14 @@ class InfiniteTimeline {
 		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/imagesloaded.pkgd.js';
 		wp_enqueue_script( 'infinite-timeline-imagesloaded.pkgd', $filename, array( 'jquery' ), 'v4.1.4' );
 
+		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/lazysizes.js';
+		wp_enqueue_script( 'infinite-timeline-lazysizes', $filename, array( 'jquery' ), '2019-06-05' );
+
 		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/infinite-scroll.pkgd.js';
 		wp_enqueue_script( 'infinite-timeline-infinitescroll', $filename, array( 'jquery' ), 'v3.0.6' );
 
 		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/infinite-timeline.js';
-		wp_enqueue_script( 'infinite-timeline', $filename, array( 'jquery' ), '1.0' );
+		wp_enqueue_script( 'infinite-timeline', $filename, array( 'jquery' ), '1.1' );
 	}
 
 	//////////////////////////////////////////
@@ -175,7 +178,7 @@ class InfiniteTimeline {
 
 				$output .= '<div class="item' .$add_class .'"' .$add_style .'>';
 				$output .= '<a href="' .get_permalink() .'">';
-				$output .= get_the_post_thumbnail( $post->ID, $size );
+				$output .= get_the_post_thumbnail( $post->ID, $size, array( 'class' => 'lazyload' ) );
 				$output .= '<div class="title">' .get_post_time( get_option( 'date_format' ) ) .'<br>' .$title .'</div>';
 				$output .= '</a>';
 				$output .= '</div>'; // .item

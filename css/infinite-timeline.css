@@ -107,6 +107,16 @@
 	padding: 20px 0;
 }
 
+#infinite_timeline img {
+	opacity: 0;
+	-webkit-transition: opacity 1s;
+	transition: opacity 1s;
+  }
+  
+#infinite_timeline img.lazyloaded {
+	opacity: 1;
+  }
+
 /* Mobile */
 @media screen and (max-width: 480px) {
 	#infinite_timeline .title {

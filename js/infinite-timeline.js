@@ -10,11 +10,6 @@ jQuery( function(){
 	}
 
 	jQuery( window ).load(function() {
-		buffer = 40;
-		if ( jQuery( '#infinite_timeline .mobile' ).length ){
-			buffer = 500;
-		}
-
 		// infinitescroll
 		var infScroll = new InfiniteScroll( '#infinite_timeline .page', {
 			path: '#infinite_timeline .pagenation a',
@@ -25,14 +20,36 @@ jQuery( function(){
 			history: 'false',
 		});
 
+		infinite_timeline_adjust_vertical_position( 0 );
+
+		// Safari not displaying loaded srcset images according to Official Hack
+		jQuery('#infinite_timeline .page').on('append.infiniteScroll', function(event, response, path, items) {
+			jQuery(items).find('img[srcset]').each(function(i, img) {
+				img.outerHTML = img.outerHTML;
+			});
+		});
+		
 		infScroll.on( 'append', function( response, path, items ) {
+			for ( var i=0; i < items.length; i++ ) {
+				reloadSrcsetImgs( items[i] );
+			}
+
 			jQuery( items ).imagesLoaded(function(){
 				infinite_timeline_adjust_vertical_position( items );
 			});
-		});		
+		});
+		
+		function reloadSrcsetImgs( item ) {
+			var imgs = item.querySelectorAll('img[srcset]');
+			for ( var i=0; i < imgs.length; i++ ) {
+				var img = imgs[i];
+				img.outerHTML = img.outerHTML;
+			}
+		}
+		// end Hack
 
-		infinite_timeline_adjust_vertical_position( 0 );
 	} );
+
 } );
 
 /////////////
