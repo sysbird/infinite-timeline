@@ -65,7 +65,7 @@
 
 #infinite_timeline .item a {
 	display: block;
-	min-height: 100px;
+	min-height: 80px;
 	border-radius: 4px;
 	text-decoration: none;
 	border: none;
@@ -109,8 +109,8 @@
 
 #infinite_timeline img {
 	opacity: 0;
-	-webkit-transition: opacity 1s;
-	transition: opacity 1s;
+	-webkit-transition: opacity 1.5s;
+	transition: opacity 1.5s;
   }
   
 #infinite_timeline img.lazyloaded {

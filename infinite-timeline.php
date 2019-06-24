@@ -33,9 +33,6 @@ class InfiniteTimeline {
 	//////////////////////////////////////////
 	// add JavaScript
 	function add_script() {
-		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/imagesloaded.pkgd.js';
-		wp_enqueue_script( 'infinite-timeline-imagesloaded.pkgd', $filename, array( 'jquery' ), 'v4.1.4' );
-
 		$filename = plugins_url( dirname( '/' .plugin_basename( __FILE__ ) ) ).'/js/lazysizes.js';
 		wp_enqueue_script( 'infinite-timeline-lazysizes', $filename, array( 'jquery' ), '2019-06-05' );
 

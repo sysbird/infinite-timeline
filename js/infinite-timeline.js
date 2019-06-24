@@ -20,8 +20,6 @@ jQuery( function(){
 			history: 'false',
 		});
 
-		infinite_timeline_adjust_vertical_position( 0 );
-
 		// Safari not displaying loaded srcset images according to Official Hack
 		jQuery('#infinite_timeline .page').on('append.infiniteScroll', function(event, response, path, items) {
 			jQuery(items).find('img[srcset]').each(function(i, img) {
@@ -34,9 +32,6 @@ jQuery( function(){
 				reloadSrcsetImgs( items[i] );
 			}
 
-			jQuery( items ).imagesLoaded(function(){
-				infinite_timeline_adjust_vertical_position( items );
-			});
 		});
 		
 		function reloadSrcsetImgs( item ) {
@@ -45,48 +40,37 @@ jQuery( function(){
 				var img = imgs[i];
 				img.outerHTML = img.outerHTML;
 			}
-		}
-		// end Hack
-
+		} // end Hack
 	} );
 
+	// image loaded
+	document.addEventListener( 'lazyloaded', function( e ){
+		infinite_timeline_adjust_vertical_position( e );
+	});
 } );
 
 /////////////
 // adjust vertical position of days gone by
-function infinite_timeline_adjust_vertical_position( newElements ){
-
-	var elements;
-	if( newElements ){
-		// more
-		elements = jQuery( newElements ).find( '.item' );
-	}
-	else{
-		// Initialize
-		elements = jQuery( '#infinite_timeline .item' );
-	}
-
-	elements.each(function( i, elem ) {
-		// this post position
-		var top = parseInt( jQuery( this ).offset().top );
-		var bottom = top + parseInt( jQuery( this ).outerHeight() );
-
-		// prev post position
-		var bottom_prev = 0;
-		if( jQuery( this ).prev().length ){
-			bottom_prev = parseInt( jQuery( this ).prev().offset().top + jQuery( this ).prev().outerHeight() );
-		}
-
-		if( bottom_prev >= bottom ){
-			// adjust this post position under the prev post
-			var height = parseInt( jQuery( this ).find('.title').height() );
-			if( jQuery( this ).find( 'img' ).length ){
-				height = parseInt( jQuery( this ).find( 'img' ).height() );
+function infinite_timeline_adjust_vertical_position( e ){
+	
+	// this post position
+	var item = jQuery(e.target).closest('.item');
+	
+	// next post position
+	var item_next = item.next();
+	if( item_next.length ){
+		var bottom = parseInt( item.offset().top + item.outerHeight() );
+		var bottom_next = parseInt( item_next.offset().top  + item_next.outerHeight());
+		if( bottom_next <= bottom ){
+			// adjust this post position under the next post
+			var height = parseInt( item.find('.title').height() );
+			if( item.find( 'img' ).length ){
+				height = parseInt( item.find( 'img' ).height() );
 			}
 
-			var margin_top = parseInt( jQuery( this ).css( 'margin-top' ) );
-			margin_top += bottom_prev - top - height;
-			jQuery( this ).css( 'margin-top', margin_top + 'px' );
+			var margin_top = parseInt( item_next.css( 'margin-top' ) );
+			margin_top += ( bottom - bottom_next + 80 );
+			item_next.css( 'margin-top', margin_top + 'px' );
 		}
-	} );
+	}	
 }
